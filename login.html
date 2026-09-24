@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      Login | SpiraScan
+    </title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="js/login.js">
+    </script>
+  </head>
+  <body class="login-page">
+    <header class="site-header">
+      <a class="brand" href="index.html">
+        <span class="brand-symbol" aria-hidden="true">
+          ◎
+        </span>
+        <span>
+          <strong aria-label="SpiraScan">
+            Spira
+            <span>
+              Scan
+            </span>
+          </strong>
+          <small>
+            Understand Today. Act Earlier.
+          </small>
+        </span>
+      </a>
+      <a class="back-link" href="index.html">
+        ← Back to Home
+      </a>
+    </header>
+    <main class="auth-layout">
+      <section class="auth-story">
+        <p class="eyebrow">
+          Your next step starts here
+        </p>
+        <h1>
+          A little awareness.
+          <br>
+          <em>
+            A brighter tomorrow.
+          </em>
+        </h1>
+        <p>
+          A space to learn about Parkinson’s and explore the patterns in a simple drawing.
+        </p>
+        <img src="assets/brain.svg" alt="Illustrated brain with connected points of light">
+        <p class="handwritten">
+          Small steps can make a meaningful difference.
+        </p>
+      </section>
+      <section class="auth-card" aria-labelledby="auth-title">
+        <span class="icon-bubble" aria-hidden="true">
+          ♡
+        </span>
+        <h2 id="auth-title">
+          Welcome back
+        </h2>
+        <p id="auth-description">
+          Sign in to your SpiraScan account.
+        </p>
+        <p class="configuration-note" id="configuration-note" hidden>
+          Account access is coming soon. Supabase authentication has not been connected yet.
+        </p>
+        <form id="auth-form">
+          <label for="email">
+            Email address
+          </label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+          <div id="password-field">
+            <label for="password">
+              Password
+            </label>
+            <div class="password-input">
+              <input id="password" name="password" type="password" autocomplete="current-password" minlength="8" placeholder="Enter your password" required>
+              <button id="toggle-password" type="button" aria-label="Show password">
+                Show
+              </button>
+            </div>
+          </div>
+          <button type="button" class="forgot-link" id="forgot-password">
+            Forgot password?
+          </button>
+          <button class="button button-primary auth-submit" id="submit-button" type="submit">
+            Sign In
+            <span aria-hidden="true">
+              →
+            </span>
+          </button>
+          <p id="auth-message" role="status" aria-live="polite">
+          </p>
+        </form>
+        <p class="auth-switch">
+          <span id="switch-description">
+            New to SpiraScan?
+          </span>
+          <button id="switch-mode" type="button">
+            Create an account
+          </button>
+        </p>
+        <div id="account-panel" hidden>
+          <p>
+            You’re signed in. The image workspace is available for preprocessing and review.
+          </p>
+          <button class="button button-outline" id="sign-out">
+            Sign Out
+          </button>
+        </div>
+        <p class="auth-disclaimer">
+          For awareness and education.
+          <br>
+          Not a substitute for professional medical advice.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

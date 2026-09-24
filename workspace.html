@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      Image review | SpiraScan
+    </title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="workspace.css">
+    <script type="module" src="js/workspace.js">
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="SpiraScan home">
+        <span class="brand-symbol" aria-hidden="true">
+          ◎
+        </span>
+        <span>
+          <strong aria-label="SpiraScan">
+            Spira
+            <span>
+              Scan
+            </span>
+          </strong>
+          <small>
+            Understand Today. Act Earlier.
+          </small>
+        </span>
+      </a>
+      <a href="index.html">
+        ← Back to Home
+      </a>
+    </header>
+    <main class="review-layout">
+      <section class="review-heading">
+        <p class="eyebrow">
+          Drawing lab · Image preprocessing
+        </p>
+        <h1>
+          Every image. A clearer view.
+        </h1>
+        <p>
+          Prepare a drawing with OpenCV and inspect each step before moving on.
+          No account is needed. Your image is processed on this computer and is not saved.
+        </p>
+      </section>
+      <div class="workspace-grid">
+        <aside class="control-panel">
+          <h2>
+            1. Choose your image
+          </h2>
+          <p>
+            Use a clear, top-down photograph of dark ink on plain white paper.
+            Keep the whole drawing visible and avoid shadows.
+          </p>
+          <label class="upload-area" for="image-file" id="drop-zone">
+            <span class="upload-symbol" aria-hidden="true">
+              ↑
+            </span>
+            <strong>
+              Choose or drop a drawing
+            </strong>
+            <span>
+              JPEG, PNG, or WebP · up to 10 MB
+            </span>
+            <input type="file" id="image-file" accept="image/jpeg,image/png,image/webp">
+          </label>
+          <p class="file-description" id="file-description">
+            No image selected. Maximum resolution: 20 megapixels.
+          </p>
+          <button class="button button-outline" id="sample-button" type="button">
+            Try a sample spiral
+          </button>
+          <form id="processing-form">
+            <fieldset id="settings">
+              <legend>
+                2. Prepare the drawing
+              </legend>
+              <label for="rotation">
+                Rotate clockwise
+              </label>
+              <select id="rotation">
+                <option value="0">
+                  No rotation
+                </option>
+                <option value="90">
+                  90 degrees
+                </option>
+                <option value="180">
+                  180 degrees
+                </option>
+                <option value="270">
+                  270 degrees
+                </option>
+              </select>
+              <label for="threshold">
+                Separate ink from paper
+              </label>
+              <select id="threshold" aria-describedby="threshold-help">
+                <option value="adaptive">
+                  Adaptive — uneven lighting
+                </option>
+                <option value="otsu">
+                  Otsu — evenly lit paper
+                </option>
+              </select>
+              <small id="threshold-help">
+                Compare both methods if shadows appear in the result.
+              </small>
+              <label for="blur">
+                Noise reduction
+              </label>
+              <select id="blur">
+                <option value="3">
+                  Light · 3 × 3
+                </option>
+                <option value="5">
+                  Medium · 5 × 5
+                </option>
+                <option value="7">
+                  Strong · 7 × 7
+                </option>
+              </select>
+              <label for="specks">
+                Remove disconnected specks
+              </label>
+              <select id="specks" aria-describedby="specks-help">
+                <option value="0">
+                  Keep all marks
+                </option>
+                <option value="8" selected>
+                  Smaller than 8 pixels
+                </option>
+                <option value="20">
+                  Smaller than 20 pixels
+                </option>
+              </select>
+              <small id="specks-help">
+                This can also remove real small marks. Review the original alongside the result.
+              </small>
+            </fieldset>
+            <button class="button button-primary" id="process-button" type="submit" disabled>
+              Process with OpenCV
+            </button>
+            <button class="text-link" id="clear-button" type="button">
+              Clear image and results
+            </button>
+          </form>
+        </aside>
+        <section class="review-panel" aria-labelledby="review-title">
+          <div class="review-toolbar">
+            <div>
+              <p class="eyebrow">
+                Look closer
+              </p>
+              <h2 id="review-title">
+                3. Review the image
+              </h2>
+            </div>
+            <button class="button button-outline button-small" id="report-button" disabled>
+              Download report
+            </button>
+          </div>
+          <p id="processing-status" role="status" aria-live="polite">
+            Choose an image or try the sample to begin.
+          </p>
+          <div class="empty-preview" id="empty-preview">
+            <span aria-hidden="true">
+              ◎
+            </span>
+            <h3>
+              Your drawing belongs here
+            </h3>
+            <p>
+              The original and each processing stage will appear below.
+            </p>
+          </div>
+          <figure id="source-preview" hidden>
+            <img id="source-image" alt="Selected drawing before processing">
+            <figcaption>
+              Selected original — processing has not been applied.
+            </figcaption>
+          </figure>
+          <div id="results" hidden>
+            <section class="quality-review" aria-labelledby="quality-title">
+              <h3 id="quality-title">
+                Image-quality review
+              </h3>
+              <ul id="review-notes">
+              </ul>
+              <p>
+                These are basic image-quality hints, not medical findings or a guarantee
+                that the drawing is suitable for analysis. No spiral recognition is performed.
+              </p>
+            </section>
+            <dl class="metric-grid" id="metrics">
+            </dl>
+            <div class="stage-grid" id="stages">
+            </div>
+          </div>
+        </section>
+      </div>
+      <p class="medical-note">
+        This workspace prepares images only. It does not diagnose Parkinson’s,
+        assess disease risk, or replace professional medical advice.
+      </p>
+    </main>
+    <dialog id="image-dialog" aria-labelledby="image-dialog-title">
+      <button class="dialog-close" id="close-image-dialog" aria-label="Close enlarged image">
+        ×
+      </button>
+      <h2 id="image-dialog-title">
+        Image preview
+      </h2>
+      <img id="enlarged-image" alt="">
+    </dialog>
+  </body>
+</html>
