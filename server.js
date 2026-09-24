@@ -1,4 +1,4 @@
-// A small local preview server. Run it with npm start.
+
 import http from 'node:http';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -47,6 +47,6 @@ http.createServer(async (request, response) => {
     response.writeHead(404);
     response.end('Page not found');
   }
-}).listen(port, '127.0.0.1', () => {
+}).listen(port, '0.0.0.0', () => {
   console.log(`SpiraScan is ready at http://127.0.0.1:${port}`);
 });

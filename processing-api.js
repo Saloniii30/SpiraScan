@@ -119,10 +119,13 @@ export async function handleProcessing(request, response, root) {
     return;
   }
 
-  const origin = request.headers.origin;
-  const expectedOrigin = `http://${request.headers.host}`;
+ const origin = request.headers.origin;
+const allowedOrigins = new Set([
+  `http://${request.headers.host}`,
+  `https://${request.headers.host}`
+]);
 
-  if (origin && origin !== expectedOrigin) {
+if (origin && !allowedOrigins.has(origin)) {
     sendJson(response, 403, { error: 'Open the workspace from this local server.' });
     return;
   }
